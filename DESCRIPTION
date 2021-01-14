@@ -1,0 +1,15 @@
+Package: stardust
+Version: 1.0
+Date: 2021-01-14
+Title: stardust: Improving Spatial Transcriptomics Data Analysis Through Space Aware Modularity Optimization Based Clustering.
+Author: Giovanni Motterle
+Maintainer: Giovanni Motterle <giovanni.motterle@univr.it>
+Depends:
+    R (>= 3.6.0)
+Description: A method for the integration of spatial information in spatial transcriptomics data clustering.
+Imports: 
+    Seurat
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
