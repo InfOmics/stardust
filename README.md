@@ -20,3 +20,10 @@ data("MouseKidneyCoord")
 seurat.object <- StardustOnSeurat(countMatrix = MouseKidney, spotPositions = MouseKidneyCoord, spaceWeight = 0.75)
 plot(MouseKidneyCoord, col = seurat.object@active.ident)
 ``` 
+
+If you don't feel like fighting a dependency war on your local machine, you can just pull our stardust docker image and you are ready to go.
+```bash
+docker pull giovannics/stardust
+docker run -it giovannics/stardust /bin/bash
+```
+Then start R and paste the workflow above. 
