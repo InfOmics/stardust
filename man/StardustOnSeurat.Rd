@@ -8,7 +8,7 @@ StardustOnSeurat(
   countMatrix,
   spotPositions,
   spaceWeight = 1,
-  pcaDimensions = 10
+  pcaDimensions = 5
 )
 }
 \arguments{
