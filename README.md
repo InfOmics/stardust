@@ -185,6 +185,10 @@ R
 ```
 
 ```R
+# install ggplot that is a dependency for the figure generation
+install.packages("ggplot2")
+library("ggplot2")
+
 # set the variables that contain the paths for the temporary files folder of rCASC, the count matrix and the spot positions file
 scratch.folder <- paste(getwd(),"/scratch",sep="")
 file <- paste(getwd(),"/filtered_expression_matrix.txt",sep="")
