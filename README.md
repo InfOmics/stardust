@@ -196,6 +196,7 @@ tissuePosition <- paste(getwd(),"/spot_coordinates.txt",sep="")
 
 # call the rCASC method for generation of the violin plot comparison figure.
 # It repeats the clustering permutation for 5 space configurations of Stardust (0,0.25,0.5,0.75 and 1). The parameters meaning are:
+# group → to create the docker image without superuser privileges
 # scratch.folder → path of the folder that rCASC use for storing temporary files
 # file → path of the count matrix file
 # tissuePosition → path of the spot coordinates file
@@ -204,8 +205,7 @@ tissuePosition <- paste(getwd(),"/spot_coordinates.txt",sep="")
 # percent → percentage of the input dataset to remove for each permutation
 # separator → character separator of values in the input files
 
-StartdustConfigurations(scratch.folder=scratch.folder, file=file, 
-tissuePosition=tissuePosition, nPerm=80, permAtTime=8, percent=10, separator"\t")
+StartdustConfigurations(group="docker",scratch.folder=scratch.folder, file=file, tissuePosition=tissuePosition, nPerm=80, permAtTime=8, percent=10, separator="\t")
 ```
 Under the “MouseKidney” folder you will see the figure produced and all the data used to create it.
 If you want to evaluate the stability of only one configuration (that is less computationally expensive) you can switch the StartdustConfigurations method call with the following one.
