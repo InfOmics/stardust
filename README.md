@@ -16,9 +16,11 @@ wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datas
 
 # unzip the archives and delete unused data
 unzip filtered_expression_matrix.txt.zip
-unzip FullDataset
 rm -rf __MACOSX
 rm filtered_expression_matrix.txt.zip FullDataset.zip
+
+unzip FullDataset
+rm FullDataset.zip
 
 # start R
 R
@@ -29,8 +31,9 @@ Stardust is dependent from Seurat, so we first need to install this package thor
 install.packages("devtools")
 library("devtools")
 # install Seurat
-devtools::install_version(package = 'Seurat', version = 
-   package_version('3.2.1'))
+install.packages("remotes")
+remotes::install_version("Seurat", version = "3.2.2")
+
 # install Stardust
 devtools::install_github("InfOmics/stardust")
 ```
@@ -46,7 +49,7 @@ countMatrix = read.table("./filtered_expression_matrix.txt",row.names=1,header =
 spotPositions = read.table("./spot_coordinates.txt",row.names=1,header = TRUE)
 
 # execute stardust passing to the method the count matrix, spot position and the weight of spatial information relative to the transcriptional similarity (spaceWeight can be a real number between 0 and 1)
-output <- StardustOnSeurat(countMatrix = MouseKidney, spotPositions = MouseKidneyCoord, spaceWeight = 0.75)
+output <- StardustOnSeurat(countMatrix = countMatrix, spotPositions = spotPositions, spaceWeight = 0.75)
 
 # get the vector of cluster identities for each spot
 clusters_identities = output@active.ident
@@ -67,20 +70,16 @@ Seurat::SpatialDimPlot(MouseKidney)
 ### Standalone R package with docker
 If you want a straight forward usage of Stardust you can also pull the dedicated docker container and skip all the possible dependency problems you could encounter with the package installation:
 ```bash
-# First download the full dataset for the creation of a Seurat object for visualization purposes
-
-wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/FullDataset.zip
-unzip FullDataset
-
-# pull the docker image and run it
+# First, pull the docker image and run it
 docker pull giovannics/stardust
-docker run -it giovannics/stardust /bin/bash
-# You can now download the count matrix and spot coordinates and run Stardust without the need to install it. 
+docker run --rm -it giovannics/stardust /bin/bash
 
 # create a working directory and enter in it
 mkdir MouseKidney && cd MouseKidney
 
-# using wget download the expression matrix and spot positions of the Mouse Kidney dataset.
+# Using wget, download the count matrix and spot coordinates (plus the full dataset for visualization purposes)
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/FullDataset.zip
+
 wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
 
 wget https://raw.githubusercontent.com/InfOmics/stardust/validation_data/stardustData/Datasets/MouseKidney/spot_coordinates.txt
@@ -90,6 +89,9 @@ wget https://raw.githubusercontent.com/InfOmics/stardust/validation_data/stardus
 unzip filtered_expression_matrix.txt.zip
 rm -rf __MACOSX
 rm filtered_expression_matrix.txt.zip 
+
+unzip FullDataset
+rm FullDataset.zip
 
 # start R
 R
@@ -105,43 +107,38 @@ countMatrix = read.table("./filtered_expression_matrix.txt",row.names=1,header =
 
 spotPositions = read.table("./spot_coordinates.txt",row.names=1,header = TRUE)
 
-# execute stardust passing to the method the count matrix, spot position and the weight of spatial information relative to the transcriptional similarity (spaceWeight can be a real number between 0 and 1)
-output <- StardustOnSeurat(countMatrix = MouseKidney, spotPositions = MouseKidneyCoord, spaceWeight = 0.75)
+# execute stardust passing to the method the count matrix, spot position and 
+# the weight of spatial information relative to the transcriptional 
+# similarity (spaceWeight can be a real number between 0 and 1)
+output <- StardustOnSeurat(countMatrix = countMatrix, spotPositions = spotPositions, spaceWeight = 0.75)
 
 # get the vector of cluster identities for each spot
 clusters_identities = output@active.ident
 
-# you can save the cluster identities to export them outside 
+# you can save the cluster identities to export them outside if you need them
 write.table(clusters_identities,file="clusters_identities.txt")
+
+# load the full dataset as a Seurat object and overwrite the cluster identities
+MouseKidney = Load10X_Spatial("./FullDataset/")
+MouseKidney@active.ident = factor(clusters_identities)
+
+
+# save the plot as a jpg to export outside the container
+jpeg('spatialClustersPlot.jpg')
+Seurat::SpatialDimPlot(MouseKidney)
+dev.off()
 ```
 
-If you want to visualize the result over the tissue image you need to create a full Seurat object of the dataset outside the container ( you need Seurat installed on your machine) and extract the cluster identities. 
 ```bash
-# On a new terminal..
+# Bash code (on a new terminal)
 # get the container id
 docker ps
-# extract the data from the container
+
+# extract the cluster identities and clusters plot from the container
 docker cp container_id:/MouseKidney/clusters_identities.txt .
+docker cp container_id:/MouseKidney/spatialClustersPlot.jpg .
 
-# start R
-R
-```
-
-```R
-# load Seurat
-library("Seurat")
-
-# create the full Seurat object
-MouseKidney = Load10X_Spatial("./FullDataset/")
-
-#load the cluster identities
-clusters_identities = read.table("./clusters_identities.txt",row.names=1,header = TRUE)
-
-# overwrite cluster identities in the Seurat object
-MouseKidney@active.ident = factor(clusters_identities$x)
-
-# visualize the clusters overlaid to the tissue image
-Seurat::SpatialDimPlot(MouseKidney)
+# you can now inspect in your local machine the clusters id that Stardust assigned to each spot and the clusters plot.
 ```
 
 ## Stability scores computation with rCASC
