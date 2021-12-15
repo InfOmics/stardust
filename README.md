@@ -22,11 +22,11 @@ mkdir MouseKidney && cd MouseKidney
 # using wget download the expression matrix and spot positions of the Mouse Kidney            
 # dataset. Download also the full dataset for the creation of a Seurat object for 
 # visualization purposes
-wget https://github.com/InfOmics/stardust/raw/validation_data/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
 
-wget https://raw.githubusercontent.com/InfOmics/stardust/validation_data/Datasets/MouseKidney/spot_coordinates.txt
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/spot_coordinates.txt
 
-wget https://github.com/InfOmics/stardust/raw/validation_data/Datasets/MouseKidney/FullDataset.zip
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/FullDataset.zip
 
 # unzip the archives and delete unused data
 unzip filtered_expression_matrix.txt.zip
@@ -83,11 +83,11 @@ mkdir MouseKidney && cd MouseKidney
 # Using wget, download the count matrix and spot coordinates 
 # (plus the full dataset for visualization purposes)
 
-wget https://github.com/InfOmics/stardust/raw/validation_data/Datasets/MouseKidney/FullDataset.zip
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/FullDataset.zip
 
-wget https://github.com/InfOmics/stardust/raw/validation_data/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
+wget wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
 
-wget https://github.com/InfOmics/stardust/validation_data/Datasets/MouseKidney/spot_coordinates.txt
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/spot_coordinates.txt
 
 
 
@@ -165,9 +165,9 @@ docker pull repbioinfo/seuratanalysis
 # the Mouse Kidney dataset (as an example)
 mkdir -p MouseKidney/scratch && cd MouseKidney
 
-wget https://github.com/InfOmics/stardust/raw/validation_data/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
+wget wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/filtered_expression_matrix.txt.zip
 
-wget https://raw.githubusercontent.com/InfOmics/stardust/validation_data/Datasets/MouseKidney/spot_coordinates.txt
+wget https://github.com/InfOmics/stardust/raw/validation_data/stardustData/Datasets/MouseKidney/spot_coordinates.txt
 
 # unzip the archive and delete unused data
 unzip filtered_expression_matrix.txt.zip
