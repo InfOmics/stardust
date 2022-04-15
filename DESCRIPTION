@@ -1,0 +1,21 @@
+Package: stardust
+Version: 2.0
+Date: 2022-04-13
+Title: Stardust: Improving Spatial Transcriptomics Data Analysis Through Space Aware Modularity Optimization Based Clustering
+Authors@R: c(person("Eva", "Viesi", role = c("aut", "cre"), email = "eva.viesi@univr.it"),
+              person("Simone", "Avesani", role =  c("aut")),
+              person("Giovanni", "Motterle", role =  c("aut")))
+Maintainer: Eva Viesi <eva.viesi@univr.it>
+Depends:
+    R (>= 3.6.0)
+Description: A method for the integration of spatial information in spatial transcriptomics data clustering.
+Imports: 
+    Seurat
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
