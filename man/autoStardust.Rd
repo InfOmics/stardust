@@ -7,13 +7,13 @@
 autoStardust(countMatrix, spotPositions, pcaDimensions = 10, res = 0.8)
 }
 \arguments{
-\item{countMatrix, }{dataframe with spots id as columns and genes id as rows.}
+\item{countMatrix, }{dataframe with spots id as columns and genes id as rows}
 
-\item{spotPositions, }{dataframe with x and y spot coordinates as columns and spots id as rows.}
+\item{spotPositions, }{dataframe with x and y spot coordinates as columns and spots id as rows}
 
-\item{pcaDimensions, }{number of PCA dimension to include in the distance computation.}
+\item{pcaDimensions, }{number of PCA dimension to include in the distance computation}
 
-\item{res, }{double resolution for Louvain algorithm.}
+\item{res, }{double resolution for Louvain algorithm}
 }
 \value{
 Seurat object with cluster identifications for each spot under active.ident slot.

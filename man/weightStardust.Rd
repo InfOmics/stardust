@@ -13,17 +13,17 @@ weightStardust(
 )
 }
 \arguments{
-\item{countMatrix, }{dataframe with spots id as columns and genes id as rows.}
+\item{countMatrix, }{dataframe with spots id as columns and genes id as rows}
 
-\item{spotPositions, }{dataframe with x and y spot coordinates as columns and spots id as rows.}
+\item{spotPositions, }{dataframe with x and y spot coordinates as columns and spots id as rows}
 
-\item{spaceWeight, }{double in [0,1]. Weight for the linear transformation of spot distance.
-1 means spot distance weight as much as profile distance, 0 means spot distance doesn't contribute at all in the overall 
-distance measure.}
+\item{spaceWeight, }{double in [0,1]. Weight for the linear transformation of spot distance
+1 means spot distance weight as much as profile distance, 0 means spot distance doesn't contribute at all in the overall
+distance measure}
 
-\item{pcaDimensions, }{number of PCA dimension to include in the distance computation.}
+\item{pcaDimensions, }{number of PCA dimension to include in the distance computation}
 
-\item{res, }{double resolution for Louvain algorithm.}
+\item{res, }{double resolution for Louvain algorithm}
 }
 \value{
 Seurat object with cluster identifications for each spot under active.ident slot.
