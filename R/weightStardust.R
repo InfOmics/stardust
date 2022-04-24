@@ -51,10 +51,10 @@ weightStardust <- function(countMatrix,
   distCoord <- dist(spotPositions,method="minkowski",p=2)
   distCoord <- distCoord*((max(distPCA)*as.double(spaceWeight))/(max(distCoord)))
   finalDistance <- as.matrix(distPCA + distCoord)
-  neighbors <- suppressWarnings(Seurat::FindNeighbors(finalDistance, distance.matrix=TRUE))
+  neighbors <- suppressWarnings(Seurat::FindNeighbors(finalDistance))
   neighbors <- list(neighbors_nn=neighbors$nn,neighbors_snn=neighbors$snn)
   seuratObject@graphs <- neighbors
-  seuratObject <- suppressWarnings(Seurat::FindClusters(seuratObject, dims = 1:pcaDimensions,
+  seuratObject <- suppressWarnings(Seurat::FindClusters(seuratObject, resolution = res,
                                                         verbose = FALSE, graph.name = "neighbors_snn"))
   seuratObject
 }
